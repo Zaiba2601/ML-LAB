@@ -67,16 +67,17 @@ print("\n ##################################### \n \n")
 
 from sklearn.linear_model import Lasso
 
-ridgemodel = Lasso(alpha=10,max_iter=10000).fit(strat_train_set,strat_train_set_labels)
-print("Lasso model coeff :",ridgemodel.coef_)
-print("Lasso model Intercept ",ridgemodel.intercept_)
-print("Lasso score for trainin data (R^2)",ridgemodel.score(strat_train_set,strat_train_set_labels))
-print("Lasso score (R^2) for testing data ",ridgemodel.score(strat_test_set,strat_test_set_labels))
+lassomodel = Lasso(alpha=10,max_iter=10000).fit(strat_train_set,strat_train_set_labels)
+print("Lasso model coeff :",lassomodel.coef_)
+print("Lasso model Intercept ",lassomodel.intercept_)
+print("Lasso score for trainin data (R^2)",lassomodel.score(strat_train_set,strat_train_set_labels))
+print("Lasso score (R^2) for testing data ",lassomodel.score(strat_test_set,strat_test_set_labels))
 
-housing_prediction  = ridgemodel.predict(strat_test_set)
+housing_prediction  = lassomodel.predict(strat_test_set)
 lin_mse = mean_squared_error(strat_test_set_labels,housing_prediction)
 lin_rmse = np.sqrt(lin_mse)
 print("RMSE for linear regression",lin_rmse)
 print("mean absolute error",mean_absolute_error(strat_test_set_labels,housing_prediction))  
-print(" number of features used are :",np.sum(ridgemodel.coef_ !=0))
+print(" number of features used are :",np.sum(lassomodel.coef_ !=0))
 print("\n ##################################### \n \n")
+
