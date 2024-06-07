@@ -47,3 +47,9 @@ housing["population_per_household"] = housing["population"]/housing["households"
 
 corr_matrix = housing.corr(method="pearson" , numeric_only=True)
 print(corr_matrix["median_house_value"].sort_values(ascending=False))
+
+# Bar chart of mean median_house_value by income_cat
+#Extra added to based on the requirements of question
+income_cat_means = housing.groupby("income_cat")["median_house_value"].mean()
+income_cat_means.plot(kind="bar", title="Mean Median House Value by Income Category", ylabel="Mean Median House Value", xlabel="Income Category")
+plt.show()
