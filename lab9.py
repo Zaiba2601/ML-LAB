@@ -17,6 +17,7 @@ tree.plot_tree(clf)
 plt.show()
 
 y_pred = clf.predict(X_test)
+print("Predicted values for test are")
 print(y_pred)
 
 cm = confusion_matrix(y_test,y_pred)
