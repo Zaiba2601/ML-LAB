@@ -29,60 +29,54 @@ strat_train_set = strat_train_set.drop("median_house_value", axis=1)
 strat_test_set_labels = strat_test_set["median_house_value"].copy()
 strat_test_set = strat_test_set.drop("median_house_value", axis=1)
 
-print("#########################################")
+print("\n \n ######################################### \n")
 lin_reg = LinearRegression()
 lin_reg.fit(X=strat_train_set, y=strat_train_set_labels)
 
-print("model coeff :",lin_reg.coef_)
-print("model Intercept ",lin_reg.intercept_)
-print("score for trainin data (R^2)",lin_reg.score(strat_train_set,strat_train_set_labels))
-print("score (R^2) for testing data ",lin_reg.score(strat_test_set,strat_test_set_labels))
+print("\n model coeff :",lin_reg.coef_)
+print("\n model Intercept ",lin_reg.intercept_)
+print("\n score for trainin data (R^2)",lin_reg.score(strat_train_set,strat_train_set_labels))
+print("\n score (R^2) for testing data ",lin_reg.score(strat_test_set,strat_test_set_labels))
 
-housing_prediction  = lin_reg.predict(strat_train_set)
-
-lin_mse = mean_squared_error(strat_train_set_labels,housing_prediction)
+housing_prediction  = lin_reg.predict(strat_test_set)
+lin_mse = mean_squared_error(strat_test_set_labels,housing_prediction)
 lin_rmse = np.sqrt(lin_mse)
-print("RMSE for linear regression",lin_rmse)
+print("\n RMSE for linear regression",lin_rmse)
+print("mean absolute error",mean_absolute_error(strat_test_set_labels,housing_prediction))  
+print("\n ##################################### \n \n ")
 
-print("#####################################")
-print("mean absolute error",mean_absolute_error(strat_train_set_labels,housing_prediction))  
 
 
 
 from sklearn.linear_model import Ridge
 
 ridgemodel = Ridge(alpha=10).fit(strat_train_set,strat_train_set_labels)
-# print("Ridge model score ", ridgemodel.score(strat_train_set,strat_train_set_labels))
-
-housing_prediction  = ridgemodel.predict(strat_train_set)
 print("Ridge model coeff :",ridgemodel.coef_)
 print("Ridge model Intercept ",ridgemodel.intercept_)
 print("Ridge score for trainin data (R^2)",ridgemodel.score(strat_train_set,strat_train_set_labels))
 print("Ridge score (R^2) for testing data ",ridgemodel.score(strat_test_set,strat_test_set_labels))
-print("mean absolute error",mean_absolute_error(strat_train_set_labels,housing_prediction))  
-lin_mse = mean_squared_error(strat_train_set_labels,housing_prediction)
+
+housing_prediction  = ridgemodel.predict(strat_test_set)
+lin_mse = mean_squared_error(strat_test_set_labels,housing_prediction)
 lin_rmse = np.sqrt(lin_mse)
 print("RMSE for linear regression",lin_rmse)
+print("mean absolute error",mean_absolute_error(strat_test_set_labels,housing_prediction))  
+print("\n ##################################### \n \n")
 
-print("#####################################")
-print("mean absolute error",mean_absolute_error(strat_train_set_labels,housing_prediction))  
 
 
 from sklearn.linear_model import Lasso
 
-# ridgemodel = Lasso(alpha=10).fit(strat_train_set,strat_train_set_labels)
 ridgemodel = Lasso(alpha=10,max_iter=10000).fit(strat_train_set,strat_train_set_labels)
-
-housing_prediction  = ridgemodel.predict(strat_train_set)
 print("Lasso model coeff :",ridgemodel.coef_)
 print("Lasso model Intercept ",ridgemodel.intercept_)
 print("Lasso score for trainin data (R^2)",ridgemodel.score(strat_train_set,strat_train_set_labels))
 print("Lasso score (R^2) for testing data ",ridgemodel.score(strat_test_set,strat_test_set_labels))
-print("mean absolute error",mean_absolute_error(strat_train_set_labels,housing_prediction))  
-lin_mse = mean_squared_error(strat_train_set_labels,housing_prediction)
+
+housing_prediction  = ridgemodel.predict(strat_test_set)
+lin_mse = mean_squared_error(strat_test_set_labels,housing_prediction)
 lin_rmse = np.sqrt(lin_mse)
 print("RMSE for linear regression",lin_rmse)
-
-print("#####################################")
-print("mean absolute error",mean_absolute_error(strat_train_set_labels,housing_prediction))  
+print("mean absolute error",mean_absolute_error(strat_test_set_labels,housing_prediction))  
 print(" number of features used are :",np.sum(ridgemodel.coef_ !=0))
+print("\n ##################################### \n \n")
