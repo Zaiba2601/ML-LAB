@@ -32,7 +32,8 @@ housing.plot(kind="scatter",x="longitude",y="latitude",title="scatter plot with 
 housing.plot(kind="scatter",x="longitude",y="latitude",alpha=0.1,title="scatter plot with transparency")
 plt.show()
 
-housing.plot(kind="scatter",x="longitude",y="latitude",alpha = 0.4 , s=housing["population"]/100 ,label="population" ,figsize =(10,7,) , c="median_house_value" , cmap=plt.get_cmap("jet"), colorbar= True )
+housing.plot(kind="scatter",x="longitude",y="latitude",alpha = 0.4 , s=housing["population"]/100 ,label="population" ,
+             figsize =(10,7,) , c="median_house_value" , cmap=plt.get_cmap("jet"), colorbar= True )
 plt.show()
 
 pd.plotting.scatter_matrix(housing)
@@ -48,8 +49,17 @@ housing["population_per_household"] = housing["population"]/housing["households"
 corr_matrix = housing.corr(method="pearson" , numeric_only=True)
 print(corr_matrix["median_house_value"].sort_values(ascending=False))
 
+# Bar chart of mean population by ocean_proximity
+ocean_proximity_means = housing.groupby("ocean_proximity")["population"].mean()
+ocean_proximity_means.plot(kind="bar",title="Population by Ocean Proximity", ylabel="Population", xlabel="Ocean Proximity")
+plt.show()
+
+#Bar chart of median_house_value by income_cat 
+# housing.plot(kind="bar",x="income_cat", y="median_house_value", title="Median House Value by Income Category", ylabel="Median House Value", xlabel="Income Category")
+# plt.show()
+# Not opting for this as its plotting bar graph for huge data , hence using mean of median_house_value
+
 # Bar chart of mean median_house_value by income_cat
-#Extra added to based on the requirements of question
 income_cat_means = housing.groupby("income_cat")["median_house_value"].mean()
 income_cat_means.plot(kind="bar", title="Mean Median House Value by Income Category", ylabel="Mean Median House Value", xlabel="Income Category")
 plt.show()
